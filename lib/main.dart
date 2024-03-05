@@ -24,7 +24,21 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         home: WeatherAppScreen(key: Key("weather_app_screen")),
+        // theme: _weatherAppTheme,
       ),
+    );
+  }
+
+  ThemeData _weatherAppTheme() {
+    return ThemeData(
+      primarySwatch: Colors.blue,
+        hintColor: Colors.orange,
+        fontFamily: 'Roboto',
+        textTheme: const TextTheme(
+          displayLarge:  TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          displayMedium: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+          displaySmall:  TextStyle(fontSize: 10, color: Colors.grey),
+        ),
     );
   }
 }
