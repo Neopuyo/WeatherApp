@@ -31,7 +31,6 @@ class TopBarWidget extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return AppBar(
-      backgroundColor: const Color(0xFF1994AA),
       actions: [  
         Expanded(
           child: Padding(

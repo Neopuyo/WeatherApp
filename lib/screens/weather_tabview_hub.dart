@@ -1,6 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_final_proj/design/weather_app_colors.dart';
+import 'package:weather_final_proj/design/weather_app_theme.dart';
 import 'package:weather_final_proj/models/city_class.dart';
 import 'package:weather_final_proj/models/weather_data.dart';
 import 'package:weather_final_proj/providers/city_provider.dart';
@@ -23,12 +25,20 @@ class WeatherTabViewHub extends StatelessWidget {
     final GeoFetcher geoFetcher = GeoFetcher();
 
     return ListView.builder(
-      itemCount: cityProvider.suggestionsCities.length,
+      itemCount: cityProvider.suggestionsCities.length < 5 ? cityProvider.suggestionsCities.length : 5,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(cityProvider.suggestionsCities[index].name),
+          title: Text(cityProvider.suggestionsCities[index].name,
+          style: TextStyle(
+            color: WAppColor.accentSwatch[700],
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Roboto",
+            ),
+          ),
           subtitle: _suggestionListTileSubtitle(
               cityProvider.suggestionsCities[index]),
+          leading: const Icon(Icons.location_on),
           onTap: () async {
             cityProvider.submitCity(cityProvider.suggestionsCities[index]);
             try {

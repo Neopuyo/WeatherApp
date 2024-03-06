@@ -14,6 +14,7 @@ class BottomBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+        elevation: 0,
         child: SizedBox(
           height: 56,
           child: TabBar(

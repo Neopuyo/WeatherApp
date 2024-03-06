@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_final_proj/design/weather_app_colors.dart';
 import 'package:weather_final_proj/models/city_class.dart';
 import 'package:weather_final_proj/models/weather_data.dart';
 import 'package:weather_final_proj/providers/city_provider.dart';
@@ -158,10 +160,27 @@ You can still use the app
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TopBarWidget(geoHandler: _geoHandler, onPositionButtonForce: _onPositionButtonForce),
-      body: _prepareWeatherTabViewHub(context),
-      bottomNavigationBar: BottomBarWidget(tabController: _tabController, timeScaleTabs: timeScaleTabs),
-    );
-  }
+      return Stack(
+    children: [
+      Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            // [!] Sonic will proove that background is all screen size
+            // image: const AssetImage("assets/images/sonic.webp"),
+            image: const AssetImage("assets/images/weather_background.jpg"),
+            colorFilter: ColorFilter.mode(
+                WAppColor.BG_COLOR.withOpacity(0.65), BlendMode.multiply),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      Scaffold(
+        backgroundColor: Colors.transparent, // set background color to transparent
+        appBar: TopBarWidget(geoHandler: _geoHandler, onPositionButtonForce: _onPositionButtonForce),
+        body: _prepareWeatherTabViewHub(context),
+        bottomNavigationBar: BottomBarWidget(tabController: _tabController, timeScaleTabs: timeScaleTabs),
+      ),
+    ],
+  );
+}
 }

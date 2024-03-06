@@ -64,6 +64,14 @@ class City {
     );
   }
 
+  String getRegionAndCountry() {
+    if (region.isNotEmpty) {
+      return "$region, $country";
+    } else {
+      return country;
+    }
+  }
+
   static List<City> getSampleData() {
     return [
       City(id: 1, name: 'Paris', latitude: 48.8566, longitude: 2.3522, region: 'Île-de-France', countryCode: 'FR', countryId: 1, country: 'France'),

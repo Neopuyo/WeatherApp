@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_final_proj/design/weather_app_colors.dart';
+import 'package:weather_final_proj/design/weather_app_theme.dart';
 import 'package:weather_final_proj/models/city_class.dart';
 import 'package:weather_final_proj/providers/city_provider.dart';
 import 'package:weather_final_proj/tools/geo_fetcher.dart';
@@ -28,14 +30,15 @@ class _GeoSearchFieldState extends State<GeoSearchField> {
     final GeoFetcher geoFetcher = GeoFetcher();
     
     return TextField(
+      style: WeatherAppTheme.textfieldInput(),
       controller: widget.controller,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         hintText: 'Search location',
-        hintStyle:
-            TextStyle(color: Color.fromARGB(255, 13, 99, 126), fontSize: 16),
+        hintStyle: WeatherAppTheme.textfieldHint(),
         border: InputBorder.none,
-        icon: Icon(Icons.search, color: Colors.white),
+        icon: const Icon(Icons.search, color: Colors.white),
       ),
+       cursorColor: WAppColor.ACCENT,
        onChanged: (value) {
         if (value.length > 2) {
           _debounceTimer?.cancel();

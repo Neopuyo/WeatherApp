@@ -29,36 +29,23 @@ class WeatherTabView extends StatelessWidget {
     }
   }
 
-  Widget _cityLocationWidget(City city) {
+  Widget _cityLocationWidget({required BuildContext context, required City city}) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
         Text(
           city.name,
-          style: const TextStyle(
-            fontSize: 24, 
-            color: Color.fromARGB(255, 13, 99, 126),
-            fontWeight: FontWeight.bold
-          ),
+          style: Theme.of(context).textTheme.displayLarge,
         ),
         Text(
-          city.region,
-          style: const TextStyle(
-            fontSize: 18, 
-            color: Colors.grey,
-          ),
+          city.getRegionAndCountry(),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
-        Text(
-          city.country,
-          style: const TextStyle(
-            fontSize: 18, 
-            color: Colors.grey,
-          ),
-        )
+        const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
       ],
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +54,9 @@ class WeatherTabView extends StatelessWidget {
       controller: tabController,
       children: timeScaleTabs.map((Tab tab) {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            _cityLocationWidget(cityProvider.selectedCity ?? City.tanukiCity()),
+            _cityLocationWidget(context: context, city: cityProvider.selectedCity ?? City.tanukiCity()),
             _weatherTabHub(tab: tab, cityProvider: cityProvider),
           ],
         );

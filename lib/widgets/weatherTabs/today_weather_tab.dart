@@ -37,7 +37,7 @@ class TodayWeatherTab extends StatelessWidget {
               children: [
                 Text(formatedTime),
                 Icon(
-                  WeatherCode.getWeatherCodeDescription(weatherCode).icon.icon,
+                  WeatherCode.getWeatherCodeDescription(weatherCode).iconData,
                   color: Colors.blueGrey,
                   size: 12,
                 ),

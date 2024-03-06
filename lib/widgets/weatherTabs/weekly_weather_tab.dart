@@ -30,7 +30,7 @@ class WeeklyWeatherTab extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(formatedTime),
-                  Icon(WeatherCode.getWeatherCodeDescription(weatherCode).icon.icon, color: Colors.blueGrey, size: 12,),
+                  Icon(WeatherCode.getWeatherCodeDescription(weatherCode).iconData, color: Colors.blueGrey, size: 12,),
                   SizedBox(
                     width: 50,
                     child: Text(
