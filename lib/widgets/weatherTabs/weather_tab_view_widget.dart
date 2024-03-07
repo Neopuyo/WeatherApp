@@ -29,23 +29,23 @@ class WeatherTabView extends StatelessWidget {
     }
   }
 
-  Widget _cityLocationWidget({required BuildContext context, required City city}) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-        Text(
-          city.name,
-          style: Theme.of(context).textTheme.displayLarge,
-        ),
-        Text(
-          city.getRegionAndCountry(),
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-      ],
-    );
-  }
+  // Widget _cityLocationWidget({required BuildContext context, required City city}) {
+  //   return Column(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+  //       Text(
+  //         city.name,
+  //         style: Theme.of(context).textTheme.displayLarge,
+  //       ),
+  //       Text(
+  //         city.getRegionAndCountry(),
+  //         style: Theme.of(context).textTheme.bodyMedium,
+  //       ),
+  //       const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +53,14 @@ class WeatherTabView extends StatelessWidget {
     return TabBarView(
       controller: tabController,
       children: timeScaleTabs.map((Tab tab) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _cityLocationWidget(context: context, city: cityProvider.selectedCity ?? City.tanukiCity()),
-            _weatherTabHub(tab: tab, cityProvider: cityProvider),
-          ],
-        );
+        return 
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   children: [
+            // _cityLocationWidget(context: context, city: cityProvider.selectedCity ?? City.tanukiCity()),
+            _weatherTabHub(tab: tab, cityProvider: cityProvider);
+        //   ],
+        // );
       }).toList(),
     );
   }

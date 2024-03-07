@@ -11,7 +11,8 @@ class WeeklyWeatherTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return Expanded(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.50,
       child: ListView.separated(
         separatorBuilder: (context, index) => const Divider(height:1, color: Colors.grey, thickness: 0.5, indent: 10, endIndent: 10),
         itemCount: cityProvider.weatherData.daily.time.length,
