@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_final_proj/design/weather_app_colors.dart';
 import 'package:weather_final_proj/models/city_class.dart';
-import 'package:weather_final_proj/models/weather_code.dart';
+
 import 'package:weather_final_proj/providers/city_provider.dart';
 import 'package:weather_final_proj/widgets/miniWidgets/card_mini_widget.dart';
+import 'package:weather_final_proj/widgets/miniWidgets/charts.dart';
+import 'package:weather_final_proj/widgets/miniWidgets/lists.dart';
 
 class TodayWeatherTab extends StatelessWidget {
 
@@ -27,8 +28,10 @@ class TodayWeatherTab extends StatelessWidget {
           children: 
           [
             CityNameCardWidget(city: cityProvider.selectedCity ?? City.tanukiCity()),
-      
-      
+            DailyTemperatureChart(cityProvider: cityProvider),
+            DailyList(cityProvider: cityProvider),
+
+            
       
           ],
         ),

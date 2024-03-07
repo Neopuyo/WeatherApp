@@ -1,5 +1,7 @@
 // import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:weather_final_proj/models/weather_code.dart';
 
 part 'weather_data.g.dart';
 
@@ -61,6 +63,48 @@ class WeatherData {
     hourly = const Hourly.tanuki(),
     dailyUnits = const DailyUnits.tanuki(),
     daily = const Daily.tanuki();
+
+
+  List<double> getDailyHours() {
+    final int maxList = hourly.time.length > 24 ? 24 : hourly.time.length;
+    final List<String> hoursRawString = hourly.time.sublist(0, maxList);
+    final List<String> hoursString = hoursRawString.map((value) {
+      final DateTime dateTime = DateTime.parse(value);
+      return dateTime.hour.toString();
+    }).toList();
+    return hoursString.map((value) => double.parse(value)).toList();
+  }
+
+  List<String> getDailyHoursAsString() {
+    final int maxList = hourly.time.length > 24 ? 24 : hourly.time.length;
+    final List<String> hoursRawString = hourly.time.sublist(0, maxList);
+    final List<String> hoursString = hoursRawString.map((value) {
+      final DateTime dateTime = DateTime.parse(value);
+      return dateTime.hour.toString();
+    }).toList();
+    return hoursString;
+  }
+
+  List<String> getDailyTemperaturesWithUnit() {
+    final int maxList = hourly.temperature2m.length > 24 ? 24 : hourly.temperature2m.length;
+    final List<String> temperatures = hourly.temperature2m.sublist(0, maxList).map((value) => value.toString() + hourlyUnits.temperature2m).toList();
+    return temperatures;
+  }
+
+  List<IconData> getDailyIconsData() {
+    final int maxList = hourly.weatherCode.length > 24 ? 24 : hourly.weatherCode.length;
+    final List<int> weatherCodes = hourly.weatherCode.sublist(0, maxList);
+    return weatherCodes.map((code) {
+       return WeatherCode.getWeatherCodeDescription(code).iconData;
+    }).toList();
+  }
+
+  List<String> getDailyWindSpeeds() {
+    final int maxList = hourly.windSpeed10m.length > 24 ? 24 : hourly.windSpeed10m.length;
+    final List<String> windSpeeds = hourly.windSpeed10m.sublist(0, maxList).map((value) => value.toString() + hourlyUnits.windSpeed10m).toList();
+    return windSpeeds;
+  }
+
 }
 
 @JsonSerializable()

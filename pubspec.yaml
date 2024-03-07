@@ -58,6 +58,7 @@ dependencies:
 
     # design part
   google_fonts: ^6.2.0
+  fl_chart: ^0.66.2
 
 dev_dependencies:
   flutter_test:
