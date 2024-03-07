@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_final_proj/design/weather_app_colors.dart';
+import 'package:weather_final_proj/models/city_class.dart';
 import 'package:weather_final_proj/models/weather_code.dart';
 import 'package:weather_final_proj/providers/city_provider.dart';
+import 'package:weather_final_proj/widgets/miniWidgets/card_mini_widget.dart';
 
 class TodayWeatherTab extends StatelessWidget {
 
@@ -12,8 +15,38 @@ class TodayWeatherTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.50,
+  return Container( // [!] ONLY TO SEE THE WIDGET
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: WAppColor.SECONDARY,
+          width: 2.0,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          children: 
+          [
+            CityNameCardWidget(city: cityProvider.selectedCity ?? City.tanukiCity()),
+      
+      
+      
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
+
+}
+
+
+
+/*
+
+return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.10,
       child: ListView.separated(
         separatorBuilder: (context, index) => const Divider(
             height: 1,
@@ -61,6 +94,5 @@ class TodayWeatherTab extends StatelessWidget {
         },
       ),
     );
-  }
 
-}
+    */
