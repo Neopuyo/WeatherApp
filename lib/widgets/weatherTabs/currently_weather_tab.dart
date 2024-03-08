@@ -21,28 +21,88 @@ class CurrentlyWeatherTab extends StatelessWidget {
 
     Orientation orientation = MediaQuery.of(context).orientation;
 
-    return  Center(
-        child: Wrap(
-            direction: orientation == Orientation.landscape
-                ? Axis.horizontal
-                : Axis.vertical,
-            crossAxisAlignment: orientation == Orientation.landscape
-                ? WrapCrossAlignment.start
-                : WrapCrossAlignment.center,
-            alignment: WrapAlignment.center,
-            spacing: MediaQuery.of(context).size.height * 0.05,
-            runSpacing: 20.0,
-            children: [
-              //[1] City title
-              CityNameCardWidget(
-                  city: cityProvider.selectedCity ?? City.tanukiCity()),
+    Widget orangeLine() {
+      return Container(
+        height: 1,
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
+        width: 180,
+        decoration: const BoxDecoration(
+          color: WAppColor.SECONDARY,
+          ),
+      );
+    }
 
-              if (orientation == Orientation.portrait)
-                Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.025)),
+    List<Widget> landscapeChildren = [
+      //[1] City title
+      CityNameCardWidget(
+          city: cityProvider.selectedCity ?? City.tanukiCity()),
 
-              //[2] Temperature
-              TemperatureCardWidget(
-                child: RichText(
+      // [2] Weather icon and description
+      IconWithTextCard(
+          icon: WeatherCode.getWeatherIcon(code: code, color: WAppColor.SECONDARY, size: 80),
+          text: description),
+
+      //[3] Temperature
+      TemperatureCardWidget(
+        child: RichText(
+          text: TextSpan(children: [
+            WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: Text(
+                  weatherData.currentWeather.temperature.toString(),
+                  style: WeatherAppTheme.currentlyTemperature(),
+                )),
+            WidgetSpan(
+                alignment: PlaceholderAlignment.top,
+                child: Text(
+                  weatherData.currentWeatherUnits.temperature,
+                  style: WeatherAppTheme.currentlyTemperatureUnit(),
+                )),
+          ]),
+        ),
+      ),
+
+      if (orientation == Orientation.portrait)
+        const Padding(padding: EdgeInsets.only(bottom: 1)),
+
+
+      // [4] Wind speed
+      WindSpeedCard(
+          windSpeed:
+              "${weatherData.currentWeather.windspeed.toString()} ${weatherData.currentWeatherUnits.windspeed}"),
+    ];
+
+    List<Widget> portraitChildren = [
+      //[1] City title
+      CityNameCardWidget(
+          city: cityProvider.selectedCity ?? City.tanukiCity()),
+
+      SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+
+      TemperatureCardWidget(child: 
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+              const SizedBox(height: 14.0, width: 10.0,),
+              // [2] Weather icon and description
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                   WeatherCode.getWeatherIcon(code: code, color: WAppColor.SECONDARY, size: 90),
+                   orangeLine(),
+                   Text(description, 
+                     maxLines: 4, 
+                     style: Theme.of(context).textTheme.bodySmall?.
+                      copyWith( 
+                        color: WAppColor.PRIMARY
+                      ),
+                   ),
+                   orangeLine(),
+                ],
+              ),
+
+              // [3] Temperature
+              RichText(
                   text: TextSpan(children: [
                     WidgetSpan(
                         alignment: PlaceholderAlignment.middle,
@@ -58,24 +118,45 @@ class CurrentlyWeatherTab extends StatelessWidget {
                         )),
                   ]),
                 ),
-              ),
-
-              if (orientation == Orientation.portrait)
-                const Padding(padding: EdgeInsets.only(bottom: 1)),
-
-              // [3] Weather icon and description
-              IconWithTextCard(
-                  icon: WeatherCode.getWeatherIcon(code: code, color: WAppColor.PRIMARY, size: 80),
-                  text: description),
 
               // [4] Wind speed
-              WindSpeedCard(
-                  windSpeed:
-                      "${weatherData.currentWeather.windspeed.toString()} ${weatherData.currentWeatherUnits.windspeed}"),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                   const Icon(Icons.air, color: WAppColor.PRIMARY, size: 18,),
+                   const SizedBox(width: 5,),
+                   Text("${weatherData.currentWeather.windspeed.toString()} ${weatherData.currentWeatherUnits.windspeed}",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith( color: WAppColor.PRIMARY),),
+                ],
+              ),
 
-              if (orientation == Orientation.portrait)
-                const Padding(padding: EdgeInsets.only(bottom: 1)),
-            ]),
+              const SizedBox(height: 24.0, width: 10.0,)
+          ],
+        )
+      )
+
+        
+    ];
+
+    return  Column(
+        mainAxisAlignment: orientation == Orientation.landscape
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.start,
+        children: [Wrap(
+            direction: orientation == Orientation.landscape
+                ? Axis.horizontal
+                : Axis.vertical,
+            crossAxisAlignment: orientation == Orientation.landscape
+                ? WrapCrossAlignment.start
+                : WrapCrossAlignment.center,
+            alignment: WrapAlignment.center,
+            spacing: MediaQuery.of(context).size.height * 0.05,
+            runSpacing: 20.0,
+            children: orientation == Orientation.landscape
+                ? landscapeChildren
+                : portraitChildren
+            ),
+        ],
     );
   }
 }

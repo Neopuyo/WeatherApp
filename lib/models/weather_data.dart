@@ -1,5 +1,6 @@
 // import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:weather_final_proj/models/weather_code.dart';
 
@@ -91,9 +92,29 @@ class WeatherData {
     return temperatures;
   }
 
+  
+
+  List<String> getWeeklyTemperaturesWithUnit({bool min=false, bool max=false}) {
+    switch ((min, max)) {
+      case (true, false):
+        return daily.temperature2mMin.map((value) => value.toString() + dailyUnits.temperature2mMin).toList();
+      case (false, true):
+        return daily.temperature2mMax.map((value) => value.toString() + dailyUnits.temperature2mMax).toList();
+      default:
+        return daily.temperature2mMin.map((value) => value.toString() + dailyUnits.temperature2mMin).toList();
+    }
+  }
+
   List<IconData> getDailyIconsData() {
     final int maxList = hourly.weatherCode.length > 24 ? 24 : hourly.weatherCode.length;
     final List<int> weatherCodes = hourly.weatherCode.sublist(0, maxList);
+    return weatherCodes.map((code) {
+       return WeatherCode.getWeatherCodeDescription(code).iconData;
+    }).toList();
+  }
+
+  List<IconData> getWeeklyIconsData() {
+    final List<int> weatherCodes = daily.weatherCode;
     return weatherCodes.map((code) {
        return WeatherCode.getWeatherCodeDescription(code).iconData;
     }).toList();
@@ -103,6 +124,17 @@ class WeatherData {
     final int maxList = hourly.windSpeed10m.length > 24 ? 24 : hourly.windSpeed10m.length;
     final List<String> windSpeeds = hourly.windSpeed10m.sublist(0, maxList).map((value) => value.toString() + hourlyUnits.windSpeed10m).toList();
     return windSpeeds;
+  }
+
+  List<String> getDays() {
+    final int maxList = daily.time.length > 7 ? 7 : daily.time.length;
+    final List<String> daysRawString = daily.time.sublist(0, maxList);
+    final List<String> daysString = daysRawString.map((value) {
+      final DateTime dateTime = DateTime.parse(value);
+      final String formattedDate = DateFormat('dd/MM').format(dateTime);
+      return formattedDate;
+    }).toList();
+    return daysString;
   }
 
 }

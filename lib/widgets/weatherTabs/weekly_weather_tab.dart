@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:weather_final_proj/models/weather_code.dart';
+import 'package:weather_final_proj/models/city_class.dart';
 import 'package:weather_final_proj/providers/city_provider.dart';
+import 'package:weather_final_proj/widgets/miniWidgets/card_mini_widget.dart';
+import 'package:weather_final_proj/widgets/miniWidgets/charts.dart';
+import 'package:weather_final_proj/widgets/miniWidgets/lists.dart';
 
 class WeeklyWeatherTab extends StatelessWidget {
   final CityProvider cityProvider;
@@ -10,8 +12,34 @@ class WeeklyWeatherTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    return SizedBox(
+
+    final List<Widget> children = 
+    [
+      CityNameCardWidget(city: cityProvider.selectedCity ?? City.tanukiCity()),
+      WeeklyTemperatureChart(cityProvider: cityProvider),
+      WeeklyList(cityProvider: cityProvider),
+    ];
+
+  return Center(
+        child: MediaQuery.of(context).orientation == Orientation.portrait 
+        ? Column(
+          children: children
+        )
+        : Row(
+          children: children,
+        ),
+    );
+  }
+}
+
+
+
+
+
+
+
+/*
+return SizedBox(
       height: MediaQuery.of(context).size.height * 0.50,
       child: ListView.separated(
         separatorBuilder: (context, index) => const Divider(height:1, color: Colors.grey, thickness: 0.5, indent: 10, endIndent: 10),
@@ -46,5 +74,4 @@ class WeeklyWeatherTab extends StatelessWidget {
         },
       ),
     );
-  }
-}
+*/

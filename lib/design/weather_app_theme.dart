@@ -135,24 +135,43 @@ class WeatherAppTheme {
   // WEATHER TABS
   //  - Currently
   static TextStyle currentlyTemperature() {
-    return TextStyle(
-      color: WAppColor.primarySwatch[400],
+    return const TextStyle(
+      color: WAppColor.PRIMARY,
       fontFamily: 'Roboto',
       fontSize: 68,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w500,
     );
   }
 
    static TextStyle currentlyTemperatureUnit() {
-    return TextStyle(
-      color: WAppColor.primarySwatch[600],
+    return const TextStyle(
+      color: WAppColor.PRIMARY,
       fontFamily: 'Roboto',
-      fontSize: 26,
-      // fontWeight: FontWeight.bold
+      fontSize: 20,
+      fontWeight: FontWeight.bold
     );
   }
 
+   //  - Daily
+  static TextStyle dailyTemperature() {
+    return const TextStyle(
+      color: WAppColor.SECONDARY,
+      fontFamily: 'Roboto',
+      fontSize: 22,
+      fontWeight: FontWeight.w600,
+    );
+  }
   
+  //  - Weekly
+  static TextStyle WeeklyTemperature({required bool isMin}) {
+
+    return TextStyle(
+      color: isMin ? WAppColor.PRIMARY : WAppColor.SECONDARY,
+      fontFamily: 'Roboto',
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+    );
+  }
 
 
 }
