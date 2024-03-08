@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_final_proj/design/weather_app_colors.dart';
 import 'package:weather_final_proj/models/city_class.dart';

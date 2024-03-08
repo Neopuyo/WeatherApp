@@ -6,6 +6,7 @@ class CityProvider extends ChangeNotifier {
   List<City> suggestionsCities;
   bool shouldDisplay;
   bool shouldResignFocus;
+  bool keyboardIsUp;
   String searchInput;
   City? selectedCity;
   CityError? error;
@@ -16,6 +17,7 @@ class CityProvider extends ChangeNotifier {
     shouldDisplay = false,
     shouldResignFocus = false,
     searchInput = "",
+    keyboardIsUp = false,
     weatherData = const WeatherData.tanukiWeather();
 
   WeatherData get getWeatherData => weatherData;
@@ -27,6 +29,11 @@ class CityProvider extends ChangeNotifier {
     if (cities.isNotEmpty) {
       error = null;
     }
+    notifyListeners();
+  }
+
+  void updateKeyboardStatus(bool status) {
+    keyboardIsUp = status;
     notifyListeners();
   }
 

@@ -9,6 +9,7 @@ import 'package:weather_final_proj/providers/city_provider.dart';
 import 'package:weather_final_proj/providers/connectivity_provider.dart';
 import 'package:weather_final_proj/tools/geo_fetcher.dart';
 import 'package:weather_final_proj/widgets/city_error_widget.dart';
+import 'package:weather_final_proj/widgets/miniWidgets/card_mini_widget.dart';
 import 'package:weather_final_proj/widgets/weatherTabs/weather_tab_view_widget.dart';
 
 class WeatherTabViewHub extends StatelessWidget {
@@ -81,12 +82,23 @@ class WeatherTabViewHub extends StatelessWidget {
           return CityErrorWidget(error: error);
         } else if (shouldDisplaySuggestions) {
           return _suggestionList(cityProvider: cityProvider);
+        } else if (!cityProvider.keyboardIsUp) {
+          return FutureBuilder<void>(
+            future: Future.delayed(const Duration(milliseconds: 500)), // Attendre 2 secondes
+            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+            return WeatherTabView(
+              tabController: tabController,
+              timeScaleTabs: timeScaleTabs,
+              cityProvider: cityProvider,
+            );
+          }
+        },
+      );
         } else {
-          return WeatherTabView(
-            tabController: tabController,
-            timeScaleTabs: timeScaleTabs,
-            cityProvider: cityProvider,
-          );
+          return Center(child: CityNameCardWidget(city: cityProvider.selectedCity ?? City.tanukiCity(), compact: true));
         }
       }
     );

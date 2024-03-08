@@ -34,24 +34,24 @@ class DailyList extends StatelessWidget {
                 
                 if (MediaQuery.of(context).orientation == Orientation.portrait)
                 Text("${hours[index]}h00",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.bold,                        ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,),
                 ),
         
                 OrangeCardWidget(
                   child: Column(
                     children: [
                       if (MediaQuery.of(context).orientation == Orientation.portrait)
-                        const SizedBox(height: 10.0, width: 10.0,),
+                        const SizedBox(height: 6.0, width: 10.0,),
                       if (MediaQuery.of(context).orientation == Orientation.landscape)
                       Text("${hours[index]}h00",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.bold,                        ),
                       ),
-                      Icon(iconsData[index], size: 60.0, ),
+                      Icon(iconsData[index], size: 40.0, ),
                       Text(temperatures[index], style: WeatherAppTheme.dailyTemperature()),
                       WindSpeedCard(windSpeed: windspeeds[index], size: CardSize.compact,),
-                      const SizedBox(height: 10.0, width: 10.0),
+                      const SizedBox(height: 6.0, width: 10.0),
                     ]
                   ),
                 ),

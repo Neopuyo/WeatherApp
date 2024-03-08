@@ -55,9 +55,10 @@ class OrangeCardWidget extends StatelessWidget {
 }
 
 class CityNameCardWidget extends StatelessWidget {
-  const CityNameCardWidget({super.key, required this.city});
+  const CityNameCardWidget({super.key, required this.city, this.compact=false});
 
   final City city;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class CityNameCardWidget extends StatelessWidget {
       elevation: 0,
       borderOnForeground: true,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: compact ? 2 : 8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -75,6 +76,7 @@ class CityNameCardWidget extends StatelessWidget {
               city.name,
               style: Theme.of(context).textTheme.displayLarge,
             ),
+            if (!compact)
             Text(
               city.getRegionAndCountry(),
               style: Theme.of(context).textTheme.bodyMedium,
