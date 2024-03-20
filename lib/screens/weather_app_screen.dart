@@ -164,8 +164,6 @@ You can still use the app
       Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            // [!] Sonic will proove that background is all screen size
-            // image: const AssetImage("assets/images/sonic.webp"),
             image: const AssetImage("assets/images/weather_background.jpg"),
             colorFilter: ColorFilter.mode(
                 WAppColor.BG_COLOR.withOpacity(0.65), BlendMode.multiply),
@@ -174,7 +172,7 @@ You can still use the app
         ),
       ),
       Scaffold(
-        backgroundColor: Colors.transparent, // set background color to transparent
+        backgroundColor: Colors.transparent,
         appBar: TopBarWidget(geoHandler: _geoHandler, onPositionButtonForce: _onPositionButtonForce),
         body: _prepareWeatherTabViewHub(context),
         bottomNavigationBar: BottomBarWidget(tabController: _tabController, timeScaleTabs: timeScaleTabs),

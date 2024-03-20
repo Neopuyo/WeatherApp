@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_final_proj/design/weather_app_colors.dart';
-import 'package:weather_final_proj/design/weather_app_theme.dart';
 import 'package:weather_final_proj/models/city_class.dart';
 import 'package:weather_final_proj/models/weather_data.dart';
 import 'package:weather_final_proj/providers/city_provider.dart';
@@ -84,7 +83,7 @@ class WeatherTabViewHub extends StatelessWidget {
           return _suggestionList(cityProvider: cityProvider);
         } else if (!cityProvider.keyboardIsUp) {
           return FutureBuilder<void>(
-            future: Future.delayed(const Duration(milliseconds: 500)), // Attendre 2 secondes
+            future: Future.delayed(const Duration(milliseconds: 500)),
             builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
