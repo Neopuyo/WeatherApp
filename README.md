@@ -54,7 +54,7 @@ for **connectivity** and **GPS** access, there is also lines to add in the emula
 
 [Fetch data from the internet](https://docs.flutter.dev/cookbook/networking/fetch-data) from flutter documentation, has all we need to getting started.  
 
-Use of `http` [package](https://pub.dev/packages/http) and `async` / `await` asynchronous management with `Future` core dart class.
+Use of `http` [package](https://pub.dev/packages/http) and `async` / `await` asynchronous management with `Future` core dart class.  
 *The [**GeoFetcher class**](./lib/tools/geo_fetcher.dart), centralizes all project API calls.*
 
 ```dart
@@ -91,9 +91,6 @@ Then a [`FutureBuilder`](https://api.flutter.dev/flutter/widgets/FutureBuilder-c
 
 I needed to perform reverse geocoding, which involves retrieving a city name from GPS coordinates, latitude and longitude. That's why I used the [OpenWeather API](https://openweathermap.org/api/geocoding-api), which required an `API key` obtained by creating a free account.
 
-For security and (bonnes pratiques/habitudes) concerns, the api key must kept secret in a .env file and not published in commits. I followed this article showing how to access environnement variables from the .env into the flutter project.
-This involved of using the following three packages in order to generate the env.g.dart file.  
-
 To comply with security and best practices, the API key should be kept secret in a .env file and not published in commits. I followed this [article](https://dev.to/namankk/securely-storing-api-keys-in-flutter-3ko4) that shows how to access environment variables from the .env file in a Flutter project. This involved using the following three packages to generate the env.g.dart file.  
 
 ```yaml
@@ -109,7 +106,9 @@ dev_dependencies:
 
 To pass data from a parent widget to a child widget, it can be passed as a parameter. However, when the widgets involved are distant in the widget tree, a more modular method is required.
 
-In searching for the most common methods used by Flutter to share data between distant widgets, I discovered a first approach using [`InheritedWidget`](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html). However, the documentation concludes that it is better to use [`providers`](https://pub.dev/packages/provider) instead. This [video](https://www.youtube.com/watch?v=FUDhozpnTUw) from Flutter Mapp gave me a first approach.
+In searching for the most common methods used by Flutter to share data between distant widgets, I discovered a first approach using [`InheritedWidget`](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html).  
+However, the documentation concludes that it is better to use [`providers`](https://pub.dev/packages/provider) instead.  
+This [video](https://www.youtube.com/watch?v=FUDhozpnTUw) from Flutter Mapp provided me a nice start to understand the provider pattern.
 
 CREATE  
 
@@ -140,7 +139,7 @@ void main() {
 }
 ```
 
-USE (RAW METHOD)
+USE - *RAW METHOD*
 
 ```dart
  // in a widget build method (need context)
@@ -152,7 +151,7 @@ USE (RAW METHOD)
  Provider.of<Counter>(context, listen: false).setName("newName");
 ```
 
-USE (CONSUMER METHOD)
+USE - *CONSUMER METHOD*
 
 ```dart
  @override
@@ -164,6 +163,7 @@ USE (CONSUMER METHOD)
     );
   }
 ```
+> Note: if we need to consume several provider at once, there is also `Consumer2`, `Consumer3`... dedicated objects. 
 
 ## JSON Serialization
 
@@ -210,7 +210,7 @@ To build charts quickly and easily, I used the [fl_chart](https://pub.dev/packag
 
 ## FEW RESPONSIVE DESIGN ELEMENTS
 
-To know if the device is in `portrait` or `landscape` orientation, we can read with the build context with MediaQuery:  
+To know if the device is in `portrait` or `landscape` orientation, we can read the build context thanks to MediaQuery:  
 
 ```dart
 Orientation orientation = MediaQuery.of(context).orientation;
